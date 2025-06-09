@@ -3,7 +3,7 @@
 ## Alunos
 
 - João Pedro Santos de Brito
-- Renan resto do nome
+- Renan Pereira do Santos
 
 ## Visão Geral
 
