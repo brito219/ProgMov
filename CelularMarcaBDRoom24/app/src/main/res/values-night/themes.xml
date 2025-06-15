@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.ToDo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/darkPrimary</item>
+        <item name="colorPrimaryVariant">@color/darkPrimaryVariant</item>
+        <item name="colorAccent">@color/darkAccent</item>
+        <item name="android:windowBackground">@color/darkBackground</item>
+    </style>
+</resources>
