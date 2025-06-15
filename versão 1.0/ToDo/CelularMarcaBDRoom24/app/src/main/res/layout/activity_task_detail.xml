@@ -1,0 +1,101 @@
+<!-- res/layout/activity_task_detail.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollTaskDetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Título -->
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_title"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Descrição -->
+        <EditText
+            android:id="@+id/edtDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_description"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Tags -->
+        <EditText
+            android:id="@+id/edtTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tags_hint"
+            android:inputType="text"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Data/Hora selecionada -->
+        <TextView
+            android:id="@+id/txtDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/select_due_date"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Botão para escolher data/hora -->
+        <Button
+            android:id="@+id/btnPickDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_date_time"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Favorita? -->
+        <CheckBox
+            android:id="@+id/cbFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favorite"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Concluída? -->
+        <CheckBox
+            android:id="@+id/cbCompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/completed"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Botões Salvar e Excluir -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/save"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

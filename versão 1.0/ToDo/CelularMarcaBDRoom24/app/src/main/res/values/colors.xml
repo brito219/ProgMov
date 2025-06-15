@@ -1,0 +1,11 @@
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="background">#F5F5F5</color>
+
+    <color name="darkPrimary">#BB86FC</color>
+    <color name="darkPrimaryVariant">#3700B3</color>
+    <color name="darkAccent">#03DAC6</color>
+    <color name="darkBackground">#121212</color>
+</resources>

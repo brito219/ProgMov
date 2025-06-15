@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">ToDo</string>
+
+    <!-- ProfileFragment -->
+    <string name="profile_photo">Foto de Perfil</string>
+
+    <!-- TaskListFragment -->
+    <string name="add_task">Adicionar tarefa</string>
+
+    <!-- TaskDetailActivity -->
+    <string name="task_title">Título da tarefa</string>
+    <string name="task_description">Descrição</string>
+    <string name="due_date">Data de Vencimento</string>
+    <string name="select_due_date">Clique para escolher a data</string>
+    <string name="favorite">Marcar como favorita</string>
+    <string name="save">Salvar</string>
+
+    <!-- Filtros -->
+    <string name="all_tasks">Todas</string>
+    <string name="pending_tasks">Pendentes</string>
+    <string name="favorite_tasks">Favoritas</string>
+
+    <!-- Login/Register (opcional) -->
+    <string name="login">Entrar</string>
+    <string name="register">Cadastrar</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Senha</string>
+    <string name="name_hint">Nome</string>
+    <string name="tags_hint">Tags</string>
+    <string name="pick_date_time">Escolher data e hora</string>
+    <string name="completed">Concluída</string>
+    <string name="delete">Excluir</string>
+
+</resources>
