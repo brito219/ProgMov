@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import com.example.ToDo.dao.TaskDao;
 import com.example.ToDo.entity.Task;
 import com.example.ToDo.entity.User;
-import com.example.ToDo.database.UserDao;
+import com.example.ToDo.dao.UserDao ;
 
 @Database(entities = {User.class, Task.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

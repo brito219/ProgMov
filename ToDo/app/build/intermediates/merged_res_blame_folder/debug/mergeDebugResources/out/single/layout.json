@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/activity_task_detail.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_task_detail.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/activity_main.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/activity_register.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/fragment_task_list.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/fragment_task_list.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/fragment_profile.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/fragment_filters.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/fragment_filters.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/item_section_header.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/item_section_header.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/activity_login.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-mergeDebugResources-35:/layout/item_task.xml",
+        "source": "com.example.ToDo.app-main-38:/layout/item_task.xml"
+    }
+]

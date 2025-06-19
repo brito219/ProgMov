@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#000000</color>
+    <color name="colorAccent">#03DAC6</color>
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="darkAccent">#03DAC6</color>
+    <color name="darkBackground">#121212</color>
+    <color name="darkPrimary">#BB86FC</color>
+    <color name="darkPrimaryVariant">#3700B3</color>
+    <style name="Theme.ToDo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/darkPrimary</item>
+        <item name="colorPrimaryVariant">@color/darkPrimaryVariant</item>
+        <item name="colorAccent">@color/darkAccent</item>
+        <item name="android:windowBackground">@color/darkBackground</item>
+    </style>
+</resources>

@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.ToDo.app-mergeDebugResources-34:/values-watch-v21/values-watch-v21.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Brito\\.gradle\\caches\\8.11.1\\transforms\\405f8932a3624019c3cd89ff6ce9d14d\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "from": {
+                        "startLines": "2,6,10",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,271,499",
+                        "endLines": "5,9,13",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "266,494,724"
+                    }
+                }
+            ]
+        }
+    ]
+}

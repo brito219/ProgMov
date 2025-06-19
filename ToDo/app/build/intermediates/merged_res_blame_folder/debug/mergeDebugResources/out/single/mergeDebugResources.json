@@ -1,0 +1,118 @@
+[
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_fragment_profile.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/drawable_ic_user_placeholder.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/drawable/ic_user_placeholder.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/xml_backup_rules.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_activity_main.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_activity_login.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/drawable_ic_notification.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/drawable/ic_notification.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_fragment_task_list.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/fragment_task_list.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/drawable_ic_add.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/drawable/ic_add.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_activity_task_detail.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_task_detail.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_item_section_header.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/item_section_header.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_fragment_filters.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/fragment_filters.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_item_task.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/item_task.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/layout_activity_register.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/drawable_button_background.xml.flat",
+        "source": "com.example.ToDo.app-main-38:/drawable/button_background.xml"
+    },
+    {
+        "merged": "com.example.ToDo.app-debug-36:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.ToDo.app-main-38:/mipmap-hdpi/ic_launcher_round.webp"
+    }
+]

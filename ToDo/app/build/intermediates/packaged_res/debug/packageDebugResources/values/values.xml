@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#F5F5F5</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="darkAccent">#03DAC6</color>
+    <color name="darkBackground">#121212</color>
+    <color name="darkPrimary">#BB86FC</color>
+    <color name="darkPrimaryVariant">#3700B3</color>
+    <string name="add_task">Adicionar tarefa</string>
+    <string name="all_tasks">Todas</string>
+    <string name="app_name">ToDo</string>
+    <string name="completed">Concluída</string>
+    <string name="delete">Excluir</string>
+    <string name="due_date">Data de Vencimento</string>
+    <string name="email_hint">Email</string>
+    <string name="favorite">Marcar como favorita</string>
+    <string name="favorite_tasks">Favoritas</string>
+    <string name="login">Entrar</string>
+    <string name="name_hint">Nome</string>
+    <string name="password_hint">Senha</string>
+    <string name="pending_tasks">Pendentes</string>
+    <string name="pick_date_time">Escolher data e hora</string>
+    <string name="profile_photo">Foto de Perfil</string>
+    <string name="register">Cadastrar</string>
+    <string name="save">Salvar</string>
+    <string name="select_due_date">Clique para escolher a data</string>
+    <string name="tags_hint">Tags</string>
+    <string name="task_description">Descrição</string>
+    <string name="task_title">Título da tarefa</string>
+    <style name="Theme.ToDo" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>

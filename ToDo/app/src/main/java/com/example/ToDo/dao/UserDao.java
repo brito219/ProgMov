@@ -1,4 +1,4 @@
-package com.example.ToDo.database;
+package com.example.ToDo.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
