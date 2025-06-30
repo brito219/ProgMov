@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;            // ← adicionado
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,13 +30,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RegisterActivity extends AppCompatActivity {
-    private static final int REQUEST_CAMERA      = 1001;
-    private static final int REQUEST_CAMERA_PERM  = 1002;
+    private static final int REQUEST_CAMERA = 1001;
+    private static final int REQUEST_CAMERA_PERM = 1002;
 
     private ImageView imgPhoto;
-    private Uri       photoUri;
-    private EditText  edtName, edtEmail, edtPassword;
-    private Button    btnSave;
+    private Uri photoUri;
+    private EditText edtName, edtEmail, edtPassword;
+    private Button btnSave;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
@@ -44,11 +44,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        imgPhoto    = findViewById(R.id.imgPhoto);
-        edtName     = findViewById(R.id.edtName);
-        edtEmail    = findViewById(R.id.edtEmail);
+        imgPhoto = findViewById(R.id.imgPhoto);
+        edtName = findViewById(R.id.edtName);
+        edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
-        btnSave     = findViewById(R.id.btnSave);
+        btnSave = findViewById(R.id.btnSave);
 
         imgPhoto.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -66,6 +66,51 @@ public class RegisterActivity extends AppCompatActivity {
         btnSave.setOnClickListener(v -> onSaveClicked());
     }
 
+    private void onSaveClicked() {
+        String name = edtName.getText().toString().trim();
+        String email = edtEmail.getText().toString().trim().toLowerCase();
+        String pwd = edtPassword.getText().toString();
+
+        if (name.isEmpty() || email.isEmpty() || pwd.isEmpty() || photoUri == null) {
+            Toast.makeText(this,
+                    "Todos os campos e a foto são obrigatórios",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String hash = PasswordUtils.hash(pwd);
+        Log.d("USUARIO_REGISTRO",
+                "email(lower)=" + email +
+                        "  rawPwd=" + pwd +
+                        "  generatedHash=" + hash
+        );
+
+        executor.execute(() -> {
+            boolean emailJaExiste = AppDatabase
+                    .getInstance(getApplicationContext())
+                    .userDao()
+                    .findByEmail(email) != null;
+
+            if (emailJaExiste) {
+                runOnUiThread(() -> Toast.makeText(
+                        this,
+                        "Este e-mail já está cadastrado",
+                        Toast.LENGTH_LONG
+                ).show());
+                return;
+            }
+
+            User u = new User(name, email, hash, photoUri.toString());
+            AppDatabase.getInstance(this).userDao().insert(u);
+            runOnUiThread(() -> {
+                Toast.makeText(this,
+                        "Usuário cadastrado com sucesso",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            });
+        });
+    }
+
     private void dispatchTakePictureIntent() {
         Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePic.resolveActivity(getPackageManager()) != null) {
@@ -75,42 +120,6 @@ public class RegisterActivity extends AppCompatActivity {
                     "Nenhum app de câmera disponível",
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void onSaveClicked() {
-        String name  = edtName.getText().toString().trim();
-        String email = edtEmail.getText().toString().trim().toLowerCase();  // ← lowercase
-        String pwd   = edtPassword.getText().toString();
-
-        if (name.isEmpty() || email.isEmpty() || pwd.isEmpty() || photoUri == null) {
-            Toast.makeText(this,
-                    "Todos os campos e a foto são obrigatórios",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // gera hash + salt
-        String hash = PasswordUtils.hash(pwd);
-        // log para verificar o que está gravando
-        Log.d("USUARIO_REGISTRO",
-                "email(lower)=" + email +
-                        "  rawPwd=" + pwd +
-                        "  generatedHash=" + hash
-        );
-
-        executor.execute(() -> {
-            User u = new User(name, email, hash, photoUri.toString());
-            AppDatabase
-                    .getInstance(getApplicationContext())
-                    .userDao()
-                    .insert(u);
-            runOnUiThread(() -> {
-                Toast.makeText(this,
-                        "Usuário cadastrado com sucesso",
-                        Toast.LENGTH_SHORT).show();
-                finish();
-            });
-        });
     }
 
     @Override
@@ -135,8 +144,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA
-                && resultCode  == Activity.RESULT_OK
-                && data        != null
+                && resultCode == Activity.RESULT_OK
+                && data != null
                 && data.getExtras() != null) {
 
             Bitmap bmp = (Bitmap) data.getExtras().get("data");

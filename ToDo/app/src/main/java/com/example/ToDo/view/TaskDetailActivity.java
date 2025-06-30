@@ -1,14 +1,9 @@
 package com.example.ToDo.view;
 
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,10 +20,15 @@ import java.util.concurrent.Executors;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
-    private EditText edtTitle, edtDesc, edtTags;
+    private EditText edtTitle, edtDesc;
     private TextView txtDateTime;
     private CheckBox cbFavorite, cbCompleted;
     private Button btnPickDateTime, btnSave, btnDelete;
+
+    private RadioGroup priorityGroup, tagGroup;
+    private RadioButton rbLow, rbMedium, rbHigh;
+    private RadioButton rbPersonal, rbStudy, rbLeisure, rbWork;
+
     private Task task;
     private final Calendar cal = Calendar.getInstance();
     private final SimpleDateFormat fmt =
@@ -40,10 +40,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        // 1) inicializa views
         edtTitle        = findViewById(R.id.edtTitle);
         edtDesc         = findViewById(R.id.edtDesc);
-        edtTags         = findViewById(R.id.edtTags);
         txtDateTime     = findViewById(R.id.txtDateTime);
         cbFavorite      = findViewById(R.id.cbFavorite);
         cbCompleted     = findViewById(R.id.cbCompleted);
@@ -51,7 +49,18 @@ public class TaskDetailActivity extends AppCompatActivity {
         btnSave         = findViewById(R.id.btnSave);
         btnDelete       = findViewById(R.id.btnDelete);
 
-        // 2) determina se é edição ou criação
+        priorityGroup = findViewById(R.id.priorityGroup);
+        tagGroup      = findViewById(R.id.tagGroup);
+
+        rbLow     = findViewById(R.id.rbLow);
+        rbMedium  = findViewById(R.id.rbMedium);
+        rbHigh    = findViewById(R.id.rbHigh);
+
+        rbPersonal = findViewById(R.id.rbPersonal);
+        rbStudy    = findViewById(R.id.rbStudy);
+        rbLeisure  = findViewById(R.id.rbLeisure);
+        rbWork     = findViewById(R.id.rbWork);
+
         if (getIntent() != null && getIntent().hasExtra("task")) {
             task = (Task) getIntent().getSerializableExtra("task");
             bindData();
@@ -61,7 +70,6 @@ public class TaskDetailActivity extends AppCompatActivity {
             btnDelete.setEnabled(false);
         }
 
-        // 3) listeners
         btnPickDateTime.setOnClickListener(v -> pickDateTime());
         btnSave.setOnClickListener(v -> saveTask());
         btnDelete.setOnClickListener(v -> deleteTask());
@@ -70,11 +78,27 @@ public class TaskDetailActivity extends AppCompatActivity {
     private void bindData() {
         edtTitle.setText(task.getTitle());
         edtDesc.setText(task.getDescription());
-        edtTags.setText(task.getTags());
         cal.setTimeInMillis(task.getDateTime());
         txtDateTime.setText(fmt.format(cal.getTime()));
         cbFavorite.setChecked(task.isFavorite());
         cbCompleted.setChecked(task.isCompleted());
+
+        if (task.getTags() != null) {
+            switch (task.getTags()) {
+                case "Pessoal":  rbPersonal.setChecked(true); break;
+                case "Estudo":   rbStudy.setChecked(true);    break;
+                case "Lazer":    rbLeisure.setChecked(true);  break;
+                case "Trabalho": rbWork.setChecked(true);     break;
+            }
+        }
+
+        if (task.getPriority() != null) {
+            switch (task.getPriority()) {
+                case "baixa":  rbLow.setChecked(true); break;
+                case "média":  rbMedium.setChecked(true); break;
+                case "alta":   rbHigh.setChecked(true); break;
+            }
+        }
     }
 
     private void pickDateTime() {
@@ -101,13 +125,29 @@ public class TaskDetailActivity extends AppCompatActivity {
     private void saveTask() {
         task.setTitle(edtTitle.getText().toString().trim());
         task.setDescription(edtDesc.getText().toString().trim());
-        task.setTags(edtTags.getText().toString().trim());
         task.setDateTime(cal.getTimeInMillis());
         task.setFavorite(cbFavorite.isChecked());
         task.setCompleted(cbCompleted.isChecked());
 
+        String prioridade = "baixa";
+        if (rbMedium.isChecked()) prioridade = "média";
+        else if (rbHigh.isChecked()) prioridade = "alta";
+        task.setPriority(prioridade);
+
+        String tag = null;
+        if (rbPersonal.isChecked()) tag = "Pessoal";
+        else if (rbStudy.isChecked()) tag = "Estudo";
+        else if (rbLeisure.isChecked()) tag = "Lazer";
+        else if (rbWork.isChecked()) tag = "Trabalho";
+        task.setTags(tag);
+
         executor.execute(() -> {
             long id;
+
+            long userId = getSharedPreferences("APP_PREF", MODE_PRIVATE)
+                    .getLong("USER_ID_LOGADO", -1);
+            task.setUserId(userId);
+
             if (task.getId() > 0) {
                 AppDatabase.getInstance(this).taskDao().update(task);
                 NotificationUtils.cancel(this, task.getId());
@@ -116,11 +156,12 @@ public class TaskDetailActivity extends AppCompatActivity {
                 id = AppDatabase.getInstance(this).taskDao().insert(task);
                 task.setId(id);
             }
-            NotificationUtils.schedule(this, task.getDateTime(), id, task.getTitle());
+
+            NotificationUtils.scheduleMultiple(this, task);
 
             runOnUiThread(() -> {
                 Toast.makeText(this, "Tarefa salva", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK);      // <<< ADICIONADO
+                setResult(RESULT_OK);
                 finish();
             });
         });
@@ -133,7 +174,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                 NotificationUtils.cancel(this, task.getId());
                 runOnUiThread(() -> {
                     Toast.makeText(this, "Tarefa excluída", Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_OK);  // <<< ADICIONADO
+                    setResult(RESULT_OK);
                     finish();
                 });
             });

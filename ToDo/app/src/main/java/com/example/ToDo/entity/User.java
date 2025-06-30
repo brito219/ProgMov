@@ -2,10 +2,12 @@ package com.example.ToDo.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
 @Entity(tableName = "users")
 public class User implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
     private long id;
 
@@ -14,6 +16,7 @@ public class User implements Serializable {
     private String passwordHash;
     private String photoUri;
 
+    // Construtor
     public User(String name, String email, String passwordHash, String photoUri) {
         this.name = name;
         this.email = email;
@@ -21,7 +24,7 @@ public class User implements Serializable {
         this.photoUri = photoUri;
     }
 
-    // Getters & Setters
+    // Getters e Setters
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 

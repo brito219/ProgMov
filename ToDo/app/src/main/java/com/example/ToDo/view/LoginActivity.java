@@ -2,7 +2,7 @@ package com.example.ToDo.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;  // ← adicionado
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,8 +18,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
+
     private EditText edtEmail, edtPassword;
-    private Button   btnLogin, btnRegister;
+    private Button btnLogin, btnRegister;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
@@ -39,13 +40,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String email = edtEmail.getText().toString().trim().toLowerCase(); // ← lowercase
+        String email = edtEmail.getText().toString().trim().toLowerCase();
         String pwd   = edtPassword.getText().toString();
 
         if (email.isEmpty() || pwd.isEmpty()) {
-            Toast.makeText(this,
-                    "Preencha todos os campos",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -55,26 +54,30 @@ public class LoginActivity extends AppCompatActivity {
                     .userDao()
                     .findByEmail(email);
 
-            // log para verificar o que está sendo lido
             Log.d("USUARIO_LOGIN",
                     "inputEmail=" + email +
-                            "  inputPwd=" + pwd +
-                            "  foundUser=" + (user != null) +
-                            "  storedHash=" + (user == null ? "null" : user.getPasswordHash())
+                            " inputPwd=" + pwd +
+                            " foundUser=" + (user != null) +
+                            " storedHash=" + (user == null ? "null" : user.getPasswordHash())
             );
 
             boolean ok = user != null
                     && PasswordUtils.verify(pwd, user.getPasswordHash());
+
             Log.d("USUARIO_LOGIN", "verifyResult=" + ok);
 
             runOnUiThread(() -> {
                 if (ok) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    getSharedPreferences("APP_PREF", MODE_PRIVATE)
+                            .edit()
+                            .putString("EMAIL_LOGADO", user.getEmail())
+                            .putLong("USER_ID_LOGADO", user.getId()) // ✅ ESSENCIAL
+                            .apply();
+
+                    startActivity(new Intent(this, MainActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this,
-                            "Credenciais incorretas",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Credenciais incorretas", Toast.LENGTH_SHORT).show();
                 }
             });
         });

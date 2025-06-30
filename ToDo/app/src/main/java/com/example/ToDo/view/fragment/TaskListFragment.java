@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import androidx.annotation.*;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,18 +29,39 @@ public class TaskListFragment extends Fragment {
     private static final int REQ_EDIT = 500;
     private RecyclerView rv;
     private FloatingActionButton fab;
+    private Spinner spinnerFilter;
     private final ExecutorService exe = Executors.newSingleThreadExecutor();
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public View onCreateView(
             @NonNull LayoutInflater inf, ViewGroup c, Bundle b
     ) {
         View v = inf.inflate(R.layout.fragment_task_list, c, false);
         rv  = v.findViewById(R.id.rvTasks);
         fab = v.findViewById(R.id.fabAdd);
+        spinnerFilter = v.findViewById(R.id.spinnerTaskFilter);
 
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
         fab.setOnClickListener(x -> startForEdit(null));
+
+        ArrayAdapter<String> filterAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Todas", "Atrasadas", "Próximas", "Concluídas", "Favoritas"}
+        );
+        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFilter.setAdapter(filterAdapter);
+
+        spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadAndDisplay(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
         return v;
     }
@@ -50,7 +75,7 @@ public class TaskListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadAndDisplay();
+        loadAndDisplay(spinnerFilter.getSelectedItemPosition());
     }
 
     @Override
@@ -59,66 +84,59 @@ public class TaskListFragment extends Fragment {
     ) {
         super.onActivityResult(req, res, data);
         if (req == REQ_EDIT && res == Activity.RESULT_OK) {
-            loadAndDisplay();
+            loadAndDisplay(spinnerFilter.getSelectedItemPosition());
         }
     }
 
-    private void loadAndDisplay() {
+    private void loadAndDisplay(int filter) {
         exe.execute(() -> {
+            long userId = requireContext()
+                    .getSharedPreferences("APP_PREF", requireContext().MODE_PRIVATE)
+                    .getLong("USER_ID_LOGADO", -1);
+            if (userId == -1) return;
+
             long now = System.currentTimeMillis();
-            List<Task> all = AppDatabase
-                    .getInstance(requireContext())
-                    .taskDao()
-                    .getAll();
+            List<Object> resultado = new ArrayList<>();
 
-            // filtra não completos
-            List<Task> pendentes = new ArrayList<>();
-            for (Task t : all) {
-                if (!t.isCompleted()) pendentes.add(t);
-            }
-
-            // separa vencidas e futuras
-            List<Task> venc = new ArrayList<>();
-            List<Task> prox = new ArrayList<>();
-            for (Task t : pendentes) {
-                if (t.getDateTime() < now) venc.add(t);
-                else prox.add(t);
-            }
-
-            // ordena futuras por data
-            Collections.sort(prox, Comparator.comparingLong(Task::getDateTime));
-
-            // prepara lista de itens (String header ou Task)
-            List<Object> sectionItems = new ArrayList<>();
-
-            if (!venc.isEmpty()) {
-                sectionItems.add("Tarefas Vencidas");
-                sectionItems.addAll(venc);
-            }
-
-            if (!prox.isEmpty()) {
-                sectionItems.add("Próximas Tarefas");
-                // agrupa por dia
-                String lastDate = "";
-                for (Task t : prox) {
-                    String dia = new java.text.SimpleDateFormat(
-                            "dd/MM/yyyy", Locale.getDefault()
-                    ).format(new Date(t.getDateTime()));
-                    if (!dia.equals(lastDate)) {
-                        lastDate = dia;
-                        sectionItems.add(dia);
+            switch (filter) {
+                case 1: // Atrasadas
+                    for (Task t : AppDatabase.getInstance(requireContext()).taskDao().getPending(userId)) {
+                        if (t.getDateTime() < now) resultado.add(t);
                     }
-                    sectionItems.add(t);
-                }
+                    break;
+                case 2: // Próximas
+                    for (Task t : AppDatabase.getInstance(requireContext()).taskDao().getPending(userId)) {
+                        if (t.getDateTime() >= now) resultado.add(t);
+                    }
+                    break;
+                case 3: // Concluídas
+                    resultado.addAll(AppDatabase.getInstance(requireContext()).taskDao().getCompleted(userId));
+                    break;
+                case 4: // Favoritas
+                    resultado.addAll(AppDatabase.getInstance(requireContext()).taskDao().getFavorites(userId));
+                    break;
+                default: // Todas (pendentes, separadas por seção)
+                    List<Task> pendentes = AppDatabase.getInstance(requireContext()).taskDao().getPending(userId);
+                    List<Task> atrasadas = new ArrayList<>();
+                    List<Task> proximas  = new ArrayList<>();
+
+                    for (Task t : pendentes) {
+                        if (t.getDateTime() < now) atrasadas.add(t);
+                        else proximas.add(t);
+                    }
+
+                    if (!atrasadas.isEmpty()) {
+                        resultado.add("Atrasadas");
+                        resultado.addAll(atrasadas);
+                    }
+                    if (!proximas.isEmpty()) {
+                        resultado.add("Próximas");
+                        resultado.addAll(proximas);
+                    }
             }
 
             requireActivity().runOnUiThread(() -> {
-                // aqui passamos o listener que abre o detail para edição
-                TaskSectionAdapter adapter =
-                        new TaskSectionAdapter(
-                                sectionItems,
-                                task -> startForEdit(task)
-                        );
+                TaskSectionAdapter adapter = new TaskSectionAdapter(resultado, this::startForEdit);
                 rv.setAdapter(adapter);
             });
         });

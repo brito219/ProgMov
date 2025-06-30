@@ -1,10 +1,13 @@
-<!-- res/layout/activity_task_detail.xml -->
-<ScrollView
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollTaskDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,7 +21,11 @@
             android:layout_height="wrap_content"
             android:hint="@string/task_title"
             android:inputType="textPersonName"
-            android:layout_marginBottom="12dp"/>
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="#888888"
+            android:layout_marginBottom="12dp" />
 
         <!-- Descrição -->
         <EditText
@@ -28,16 +35,62 @@
             android:hint="@string/task_description"
             android:inputType="textMultiLine"
             android:minLines="3"
-            android:layout_marginBottom="12dp"/>
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="#888888"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Prioridade -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prioridade:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <RadioGroup
+            android:id="@+id/priorityGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/rbLow"
+                android:text="Baixa"
+                android:textColor="@android:color/holo_green_dark" />
+
+            <RadioButton
+                android:id="@+id/rbMedium"
+                android:text="Média"
+                android:textColor="@android:color/holo_orange_dark" />
+
+            <RadioButton
+                android:id="@+id/rbHigh"
+                android:text="Alta"
+                android:textColor="@android:color/holo_red_dark" />
+        </RadioGroup>
 
         <!-- Tags -->
-        <EditText
-            android:id="@+id/edtTags"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/tags_hint"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"/>
+            android:text="Tag:"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/tagGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton android:id="@+id/rbPersonal" android:text="Pessoal" />
+            <RadioButton android:id="@+id/rbStudy" android:text="Estudo" />
+            <RadioButton android:id="@+id/rbLeisure" android:text="Lazer" />
+            <RadioButton android:id="@+id/rbWork" android:text="Trabalho" />
+        </RadioGroup>
 
         <!-- Data/Hora selecionada -->
         <TextView
@@ -46,16 +99,21 @@
             android:layout_height="wrap_content"
             android:hint="@string/select_due_date"
             android:padding="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:layout_marginBottom="12dp"/>
+            android:background="@drawable/edittext_background"
+            android:textColorHint="#888888"
+            android:layout_marginBottom="12dp" />
 
         <!-- Botão para escolher data/hora -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPickDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pick_date_time"
-            android:layout_marginBottom="24dp"/>
+            android:textAllCaps="false"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white"
+            app:cornerRadius="12dp"
+            android:layout_marginBottom="24dp" />
 
         <!-- Favorita? -->
         <CheckBox
@@ -63,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/favorite"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
         <!-- Concluída? -->
         <CheckBox
@@ -71,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/completed"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp" />
 
         <!-- Botões Salvar e Excluir -->
         <LinearLayout
@@ -79,23 +137,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:layout_marginTop="12dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDelete"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/delete"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@android:color/darker_gray"
+                app:cornerRadius="12dp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/save"/>
+                android:layout_weight="1"
+                android:text="@string/save"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/purple_500"
+                android:layout_marginStart="8dp"
+                app:cornerRadius="12dp" />
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -9,6 +9,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -36,6 +38,9 @@
 
         <!-- Detalhe (criação, edição, exclusão) de uma tarefa -->
         <activity android:name=".view.TaskDetailActivity" android:exported="false" />
+
+        <activity android:name=".view.ProfileActivity" />
+        <activity android:name=".view.EditProfileActivity" />
 
         <!-- Receiver para disparar notificações agendadas -->
         <receiver android:name=".receiver.AlarmReceiver" android:exported="true" />

@@ -3,10 +3,9 @@ package com.example.ToDo.receiver;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.media.RingtoneManager;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
@@ -20,12 +19,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context ctx, Intent intent) {
         long taskId = intent.getLongExtra("taskId", -1);
         String title = intent.getStringExtra("title");
+        String mensagem = intent.getStringExtra("mensagem");
 
         NotificationManager nm = (NotificationManager)
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Cria canal (Android O+)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "ToDo Alerts",
@@ -35,7 +34,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             nm.createNotificationChannel(channel);
         }
 
-        // Intent que será disparada ao clicar na notificação
         Intent main = new Intent(ctx, MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(
                 ctx,
@@ -45,9 +43,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notification)   // seu ícone de notificação
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("Lembrete: " + title)
-                .setContentText("É hora de concluir sua tarefa")
+                .setContentText(mensagem)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pi)
                 .setAutoCancel(true);
